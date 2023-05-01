@@ -1,38 +1,52 @@
 <template>
-    <p>simple text</p>
+    <navbar
+    :pages="pages"
+    :active-page="activePage"
+    :nav-link-click="(index) => activePage = index">
+    </navbar>
+
+    <div v-show="false">Hide this content</div>
+
+    <!-- <page-viewer
+        :page="pages[activePage]">
+    </page-viewer> -->
+
+    <create-page
+        @page-created="pageCreated"
+    ></create-page>
 </template>
 
 <script>
 import PageViewer from './components/PageViewer.vue';
 import Navbar from './components/Navbar.vue';
+import CreatePage from './components/CreatePage.vue';
 
 
 export default {
     components: {
         PageViewer,
-        Navbar
+        Navbar,
+        CreatePage
+    },
+    created() {
+        this.getPages();
     },
     data() {
         return {
             activePage: 0,
-            pages: [
-                {
-                    link: {text: 'Home', url: 'home.html'},
-                    pageTitle: 'Home Page',
-                    content: 'This is the home content'
-                },
-                {
-                    link: {text: 'Projects', url: 'projects.html'},
-                    pageTitle: 'Projects Page',
-                    content: 'This is the project content'
-                },
-                {
-                    link: {text: 'About', url: 'about.html'},
-                    pageTitle: 'About Page',
-                    content: 'This is the about content'
-                }
-            ]
+            pages: []
         };
     },
+    methods : {
+        async getPages () {
+            let res = await fetch('pages.json')
+            let data = await res.json();
+
+            this.pages = data;
+        },
+        pageCreated(pageObj) {
+            this.pages.push(pageObj);
+        }
+    }
 }
 </script>

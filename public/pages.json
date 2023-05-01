@@ -1,0 +1,18 @@
+[{
+    "link": {"text": "Home", "url": "home.html"},
+    "pageTitle": "Home Page",
+    "content": "This is the home content",
+    "published": true
+},
+{
+    "link": {"text": "Projects", "url": "projects.html"},
+    "pageTitle": "Projects Page",
+    "content": "This is the project content",
+    "published": true
+},
+{
+    "link": {"text": "About", "url": "about.html"},
+    "pageTitle": "About Page",
+    "content": "This is the about content",
+    "published": false
+}]

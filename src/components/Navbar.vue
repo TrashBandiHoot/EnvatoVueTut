@@ -6,15 +6,12 @@
         <div class="container-fluid">
             <a href="#" class="navbar-brand">My Vue</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li v-for="(page, index) in pages" class="nav-item" :key="index">
-                        <a 
-                        aria-current="page" 
-                        class="nav-link"
-                        :class="{active: activePage == index}"
-                        :href="page.link.url"
-                        :title="`This link goes to the ${page.link.text} page`"
-                        @click.prevent="navLinkClick(index)"
-                        >{{page.link.text}}</a>
+                    <li v-for="(page, index) in publishedPages" class="nav-item" :key="index">
+                        <navbar-link
+                        :page="page"
+                        :isActive="activePage == index"
+                        @click.prevent="navLinkClick(index)">
+                        </navbar-link>
                     </li>
                 </ul>
             <form class="d-flex">
@@ -28,7 +25,20 @@
 </template>
 
 <script>
+import NavbarLink from './NavbarLink.vue';
+
 export default {
+            components: {
+                NavbarLink,
+            },
+            created() {
+                this.getThemeSetting();
+            },
+            computed: {
+                publishedPages() {
+                    return this.pages.filter(p => p.published);
+                }
+            },
             props: ['pages', 'activePage', 'navLinkClick'],
             data() {
                 return {
@@ -44,7 +54,18 @@ export default {
                     } 
 
                     this.theme = theme;
-                }
+                    this.storeThemeSetting();
+                },
+                storeThemeSetting() {
+                    localStorage.setItem('theme', this.theme);
+                },
+                getThemeSetting() {
+                    let theme = localStorage.getItem('theme');
+
+                    if (theme) {
+                        this.theme = theme;
+                    }
+                },
             },
         }
 </script>
