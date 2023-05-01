@@ -1,26 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>simple text</p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageViewer from './components/PageViewer.vue';
+import Navbar from './components/Navbar.vue';
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    components: {
+        PageViewer,
+        Navbar
+    },
+    data() {
+        return {
+            activePage: 0,
+            pages: [
+                {
+                    link: {text: 'Home', url: 'home.html'},
+                    pageTitle: 'Home Page',
+                    content: 'This is the home content'
+                },
+                {
+                    link: {text: 'Projects', url: 'projects.html'},
+                    pageTitle: 'Projects Page',
+                    content: 'This is the project content'
+                },
+                {
+                    link: {text: 'About', url: 'about.html'},
+                    pageTitle: 'About Page',
+                    content: 'This is the about content'
+                }
+            ]
+        };
+    },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
